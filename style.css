@@ -1,0 +1,94 @@
+:root {
+  --bg: #0f172a;        /* page background */
+  --card: #1e293b;      /* task cards */
+  --ink: #f1f5f9;       /* text color */
+  --muted: #94a3b8;     /* lighter text */
+  --line: #334155;      /* borders */
+  --brand: #22d3ee;     /* buttons, ring, checkbox */
+  --brand-soft: #164e63;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  background-image: radial-gradient(circle at 90% -10%, #dcd3ff 0, transparent 40%);
+}
+.app { max-width: 600px; margin: 0 auto; padding: 40px 18px 80px; }
+
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.top h1 { margin: 0; font-size: 2.2rem; letter-spacing: -0.5px; }
+.top p { margin: 4px 0 0; color: var(--muted); }
+.ring {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: conic-gradient(var(--brand) calc(var(--p, 0) * 1%), var(--line) 0);
+  position: relative;
+}
+.ring::before { content: ""; position: absolute; inset: 7px; background: var(--bg); border-radius: 50%; }
+.ring span { position: relative; font-weight: 700; font-size: .85rem; }
+
+.composer {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(60, 40, 120, .08);
+}
+.composer input[type="text"] {
+  width: 100%; border: none; outline: none; background: transparent;
+  font: inherit; font-size: 1.1rem; padding: 6px 2px 12px;
+  border-bottom: 2px solid var(--line); color: var(--ink);
+}
+.composer input[type="text"]:focus { border-color: var(--brand); }
+.composer-row { display: flex; align-items: center; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.spacer { flex: 1; }
+
+.btn {
+  font: inherit; font-size: .92rem; font-weight: 600;
+  padding: 9px 16px; border-radius: 10px; border: 1px solid transparent;
+  cursor: pointer; transition: transform .12s, background .12s;
+}
+.btn:active { transform: scale(.96); }
+.btn.primary { background: var(--brand); color: #fff; }
+.btn.primary:hover { background: #4a2de0; }
+.btn.ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn.ghost:hover { background: var(--brand-soft); }
+.btn.small { padding: 6px 12px; font-size: .82rem; }
+.btn.del { color: var(--danger); }
+.btn:focus-visible, .chip:focus-visible, .composer input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.preview { position: relative; width: 56px; height: 44px; }
+.preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.preview button {
+  position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; padding: 0;
+  border-radius: 50%; border: none; background: var(--ink); color: #fff; cursor: pointer; font-size: .8rem; line-height: 20px;
+}
+.msg { margin: 10px 0 0; color: var(--danger); font-size: .85rem; min-height: 1.1em; }
+
+.filters { display: flex; gap: 8px; margin: 22px 0 14px; }
+.chip {
+  font: inherit; font-size: .88rem; padding: 6px 16px; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+}
+.chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; box-shadow: 0 2px 8px rgba(60, 40, 120, .05);
+}
+.item-main { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.check { width: 22px; height: 22px; accent-color: var(--brand); flex: none; cursor: pointer; }
+.title { flex: 1; word-break: break-word; font-size: 1.02rem; }
+.item.done .title { text-decoration: line-through; color: var(--muted); }
+.item img.photo { display: block; width: 100%; max-height: 260px; object-fit: cover; }
+.item-actions { display: flex; gap: 8px; padding: 10px 16px 14px; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+
+@media (max-width: 480px) { .top h1 { font-size: 1.8rem; } }
+.item { animation: pop .25s ease; transition: transform .15s, box-shadow .15s; }
+.item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+@keyframes pop { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
